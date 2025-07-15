@@ -53,7 +53,6 @@ public class UserDaoJDBCImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-            System.out.println("User removed");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,7 +82,6 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
-            System.out.println("Table cleaned");
         } catch (SQLException e) {
             e.printStackTrace();
         }
