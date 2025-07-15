@@ -29,7 +29,6 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
-            System.out.println("Table dropped");
         } catch (SQLException e) {
             e.printStackTrace();
         }
