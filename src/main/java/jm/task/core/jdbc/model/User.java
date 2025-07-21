@@ -4,8 +4,9 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
-@Table
+
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @Column (name = "id")

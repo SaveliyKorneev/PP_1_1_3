@@ -16,7 +16,7 @@ public class Main {
         //добавление четырех пользователей
         userService.saveUser("Saveliy", "Korneev", (byte) 25);
         System.out.println("User с именем Saveliy добавлен в базу данных");
-        userService.saveUser("Ivan", "Smirnov", (byte) 33);
+        userService.saveUser("Ivan", "Smirnov", (byte) 26);
         System.out.println("User с именем Ivan добавлен в базу данных");
         userService.saveUser("Alex", "Ivanov", (byte) 27);
         System.out.println("User с именем Alex добавлен в базу данных");
