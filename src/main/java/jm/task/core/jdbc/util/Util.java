@@ -29,16 +29,13 @@ public class Util {
         return connection;
     }
 
-    private static SessionFactory sessionFactory = buildSessionFactory();
+    public static final SessionFactory sessionFactory = buildSessionFactory();
 
     public static SessionFactory buildSessionFactory() {
         try {
-            if (sessionFactory != null) {
-                sessionFactory.close();
-            }
             Configuration configuration = new Configuration();
-            Properties settings = new Properties();
 
+            Properties settings = new Properties();
             settings.put(Environment.DRIVER, BD_MySQL);
             settings.put(Environment.URL, BD_URL);
             settings.put(Environment.USER, BD_USERNAME);
@@ -54,10 +51,15 @@ public class Util {
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
 
-            return sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            return configuration.buildSessionFactory(serviceRegistry);
         } catch (Exception e) {
             System.err.println("Problem creating session factory" + e);
             throw new ExceptionInInitializerError(e);
+        }
+    }
+    public static void shutdown() {
+        if (sessionFactory != null) {
+            sessionFactory.close();
         }
     }
 
