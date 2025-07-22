@@ -17,6 +17,7 @@ public class Util {
     private static final String BD_URL = "jdbc:mysql://localhost:3306/sys";
     private static final String BD_USERNAME = "root";
     private static final String BD_PASSWORD = "root";
+    private static SessionFactory sessionFactory;
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -29,9 +30,7 @@ public class Util {
         return connection;
     }
 
-    public static final SessionFactory sessionFactory = buildSessionFactory();
-
-    public static SessionFactory buildSessionFactory() {
+    public static SessionFactory getSessionFactory() {
         try {
             Configuration configuration = new Configuration();
 
@@ -43,7 +42,6 @@ public class Util {
             settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
             settings.put(Environment.SHOW_SQL, "true");
             settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-            settings.put(Environment.HBM2DDL_AUTO, "create-drop");
 
             configuration.setProperties(settings);
             configuration.addAnnotatedClass(User.class);
@@ -51,20 +49,14 @@ public class Util {
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
 
-            return configuration.buildSessionFactory(serviceRegistry);
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Exception e) {
             System.err.println("Problem creating session factory" + e);
             throw new ExceptionInInitializerError(e);
         }
-    }
-    public static void shutdown() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
-        }
-    }
-
-    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }
+
+
 
